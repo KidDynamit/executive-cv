@@ -1,6 +1,6 @@
 /* ==========================================================================
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV DESIGN SYSTEM
-   - Desktop: Popover opens right next to card on hover
+   - Desktop: Popover tightly anchored immediately 12px right of the card
    - Small Viewport: Card internal content switches to Detailed Version ON HOVER
    ========================================================================== */
 
@@ -374,15 +374,16 @@ body {
   width: 100%;
 }
 
-/* 3D FUT Card Perspective Wrapper & Hover Popover Container */
+/* 3D FUT Card Perspective Wrapper (Tightly set to 350px width) */
 .card-perspective-container {
   perspective: 1000px;
   margin-bottom: 24px;
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 350px;
+  max-width: 100%;
 }
 
 .fut-card-light {
@@ -417,13 +418,13 @@ body {
   border-radius: 26px;
 }
 
-/* Card Hover Metric Details Popover (Positioned Right Next to Card on Desktop) */
+/* Desktop Popover: Positioned EXACTLY 12px to the right of the 350px card! */
 .card-hover-popover {
   position: absolute;
-  left: calc(100% + 14px);
-  top: 50%;
-  transform: translateY(-50%) translateX(10px);
-  width: 310px;
+  left: 362px;
+  top: 0;
+  bottom: 0;
+  width: 300px;
   background: #ffffff;
   border: 1px solid #cbd5e1;
   box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.18), 0 0 25px var(--accent-glow);
@@ -434,13 +435,15 @@ body {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .card-perspective-container:hover .card-hover-popover {
   opacity: 1;
   visibility: visible;
-  transform: translateY(-50%) translateX(0);
 }
 
 .popover-header {
@@ -1040,6 +1043,13 @@ body {
    MOBILE & TABLET VIEWPORT OPTIMIZATIONS
    ========================================================================== */
 
+@media (max-width: 1000px) {
+  /* On screen widths < 1000px where side popover doesn't fit, hide popover & use internal card hover switch */
+  .card-hover-popover {
+    display: none !important;
+  }
+}
+
 @media (max-width: 900px) {
   .header-container {
     flex-direction: column;
@@ -1064,11 +1074,6 @@ body {
 
   .analytics-grid {
     grid-template-columns: 1fr;
-  }
-
-  /* Completely hide external hover popover on small screens */
-  .card-hover-popover {
-    display: none !important;
   }
 }
 

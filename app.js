@@ -1,7 +1,7 @@
 /* ==========================================================================
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV CONTROLLER
-   - Desktop: Popover opens right next to card on hover
-   - Mobile / Small Viewport: Card internal content switches to Detailed Version ON HOVER
+   - Desktop (>=1000px): Popover opens flush right next to the 350px card (12px gap)
+   - Small Viewport (<1000px): Card internal content switches to Detailed Version ON HOVER
    - Industry-accurate AdTech terminology (Publishers / Propriétaires Médias)
    ========================================================================== */
 
@@ -507,9 +507,8 @@ function setupEventListeners() {
 
   const futCard = document.getElementById('fut-card');
   if (futCard) {
-    // 3D Parallax on Desktop
     futCard.addEventListener('mousemove', (e) => {
-      if (window.innerWidth <= 900) return;
+      if (window.innerWidth < 1000) return;
       const rect = futCard.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
@@ -520,23 +519,23 @@ function setupEventListeners() {
 
     futCard.addEventListener('mouseleave', () => {
       futCard.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-      // Reset mobile hover flip on mouse leave
-      if (window.innerWidth <= 900) {
+      // Reset card flip on mouse leave for small screens
+      if (window.innerWidth < 1000) {
         isCardFlipped = false;
         renderPlayerCard();
       }
     });
 
-    // ON SMALL VIEWPORTS (<900px): Hover / Touch enters switches card to Detailed Version!
+    // ON SMALL VIEWPORTS (<1000px): Hover switches card internal view to Detailed Version!
     futCard.addEventListener('mouseenter', () => {
-      if (window.innerWidth <= 900) {
+      if (window.innerWidth < 1000) {
         isCardFlipped = true;
         renderPlayerCard();
       }
     });
 
     futCard.addEventListener('touchstart', () => {
-      if (window.innerWidth <= 900) {
+      if (window.innerWidth < 1000) {
         isCardFlipped = !isCardFlipped;
         renderPlayerCard();
       }
@@ -544,7 +543,7 @@ function setupEventListeners() {
 
     // Desktop Click -> Scroll to Timeline
     futCard.addEventListener('click', () => {
-      if (window.innerWidth > 900) {
+      if (window.innerWidth >= 1000) {
         const timelineSection = document.getElementById('timeline-section');
         if (timelineSection) {
           timelineSection.scrollIntoView({ behavior: 'smooth' });
@@ -623,7 +622,6 @@ function renderHeader() {
   });
 }
 
-/* Card Render with Front / Detailed View Switch */
 function renderPlayerCard() {
   const pos = POSITIONS[currentRole];
   const futCard = document.getElementById('fut-card');
@@ -721,7 +719,7 @@ function animateNumbers() {
   });
 }
 
-/* Render Desktop Hover Popover Right Next To Card */
+/* Render Desktop Hover Popover Tightly Anchored Right Next To Card (12px Gap) */
 function renderHoverPopover() {
   const container = document.querySelector('.card-perspective-container');
   if (!container) return;
