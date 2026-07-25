@@ -2,6 +2,7 @@
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV DESIGN SYSTEM
    - Desktop: Popover tightly anchored immediately 12px right of the card
    - Small Viewport: Card internal content switches to Detailed Version ON HOVER
+   - Hide side popover when detailed view is active in card
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=Teko:wght@500;600;700&display=swap');
@@ -418,7 +419,7 @@ body {
   border-radius: 26px;
 }
 
-/* Desktop Popover: Positioned EXACTLY 12px to the right of the 350px card! */
+/* Desktop Popover: Positioned EXACTLY 12px to the right of the 350px card */
 .card-hover-popover {
   position: absolute;
   left: 362px;
@@ -439,6 +440,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Hide side popover completely if card is flipped/in detailed view */
+.fut-card-light.is-flipped ~ .card-hover-popover {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .card-perspective-container:hover .card-hover-popover {

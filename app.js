@@ -2,7 +2,7 @@
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV CONTROLLER
    - Desktop (>=1000px): Popover opens flush right next to the 350px card (12px gap)
    - Small Viewport (<1000px): Card internal content switches to Detailed Version ON HOVER
-   - Industry-accurate AdTech terminology (Publishers / Propriétaires Médias)
+   - Hide side hover popover completely when detailed view is active inside card
    ========================================================================== */
 
 const PASSCODES = {
@@ -519,14 +519,12 @@ function setupEventListeners() {
 
     futCard.addEventListener('mouseleave', () => {
       futCard.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-      // Reset card flip on mouse leave for small screens
       if (window.innerWidth < 1000) {
         isCardFlipped = false;
         renderPlayerCard();
       }
     });
 
-    // ON SMALL VIEWPORTS (<1000px): Hover switches card internal view to Detailed Version!
     futCard.addEventListener('mouseenter', () => {
       if (window.innerWidth < 1000) {
         isCardFlipped = true;
@@ -541,7 +539,6 @@ function setupEventListeners() {
       }
     });
 
-    // Desktop Click -> Scroll to Timeline
     futCard.addEventListener('click', () => {
       if (window.innerWidth >= 1000) {
         const timelineSection = document.getElementById('timeline-section');
@@ -627,6 +624,12 @@ function renderPlayerCard() {
   const futCard = document.getElementById('fut-card');
   if (!futCard) return;
 
+  if (isCardFlipped) {
+    futCard.classList.add('is-flipped');
+  } else {
+    futCard.classList.remove('is-flipped');
+  }
+
   if (!isCardFlipped) {
     const statsHtml = Object.keys(pos.stats).map(key => {
       const stat = pos.stats[key];
@@ -674,27 +677,27 @@ function renderPlayerCard() {
       </div>
     `;
   } else {
-    // Detailed View (Switched internal card view on small viewports hover)
+    // Detailed View (Clean view without duplicating side popover)
     const detailsHtml = Object.keys(pos.stats).map(key => {
       const stat = pos.stats[key];
       return `
-        <div style="margin-bottom: 10px; text-align: left;">
-          <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: var(--accent-color);">
+        <div style="margin-bottom: 12px; text-align: left;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: var(--accent-color); margin-bottom: 2px;">
             <span>${stat.label[currentLang]}</span>
-            <span style="font-family: var(--font-jersey); font-size: 18px;">${stat.value}</span>
+            <span style="font-family: var(--font-jersey); font-size: 20px;">${stat.value}</span>
           </div>
-          <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.3;">${stat.detail[currentLang]}</p>
+          <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.35;">${stat.detail[currentLang]}</p>
         </div>
       `;
     }).join('');
 
     futCard.innerHTML = `
       <div class="card-header-clean">
-        <span style="font-size: 12px; font-weight: 800; color: var(--accent-color);">🔍 ${pos.title[currentLang]} Metrics</span>
-        <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">Detailed View</span>
+        <span style="font-size: 13px; font-weight: 800; color: var(--accent-color);">🔍 ${pos.title[currentLang]}</span>
+        <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">Detailed Breakdown</span>
       </div>
 
-      <div style="overflow-y: auto; padding-right: 4px; max-height: 460px; margin-top: 10px;">
+      <div style="overflow-y: auto; padding-right: 4px; max-height: 470px; margin-top: 12px;">
         ${detailsHtml}
       </div>
     `;
@@ -719,7 +722,7 @@ function animateNumbers() {
   });
 }
 
-/* Render Desktop Hover Popover Tightly Anchored Right Next To Card (12px Gap) */
+/* Render Desktop Hover Popover (Hidden automatically if isCardFlipped is true) */
 function renderHoverPopover() {
   const container = document.querySelector('.card-perspective-container');
   if (!container) return;
