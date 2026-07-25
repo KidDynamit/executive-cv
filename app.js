@@ -2,7 +2,7 @@
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV CONTROLLER
    - Desktop (>=1000px): Popover opens flush right next to the 350px card (12px gap)
    - Small Viewport (<1000px): Card internal content switches to Detailed Version ON HOVER
-   - Hide side hover popover completely when detailed view is active inside card
+   - Clean popover header without redundant label
    ========================================================================== */
 
 const PASSCODES = {
@@ -677,7 +677,7 @@ function renderPlayerCard() {
       </div>
     `;
   } else {
-    // Detailed View (Clean view without duplicating side popover)
+    // Detailed View Inside Card
     const detailsHtml = Object.keys(pos.stats).map(key => {
       const stat = pos.stats[key];
       return `
@@ -722,7 +722,7 @@ function animateNumbers() {
   });
 }
 
-/* Render Desktop Hover Popover (Hidden automatically if isCardFlipped is true) */
+/* Render Desktop Hover Popover (Clean header without redundant 'Hover Card Detail' label) */
 function renderHoverPopover() {
   const container = document.querySelector('.card-perspective-container');
   if (!container) return;
@@ -752,7 +752,6 @@ function renderHoverPopover() {
   popover.innerHTML = `
     <div class="popover-header">
       <h4>🔍 ${pos.title[currentLang]} Metric Details</h4>
-      <span style="font-size: 11px; color: var(--accent-color); font-weight: 700;">Hover Card Detail</span>
     </div>
     ${itemsHtml}
   `;
