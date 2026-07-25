@@ -1,7 +1,6 @@
 /* ==========================================================================
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV CONTROLLER
-   - Premium Pill Overall Rating badge at bottom center
-   - Location (Canada • Montréal) at top
+   - Dynamic header subtitle without extra filler text
    - Industry-accurate AdTech terminology (Publishers / Propriétaires Médias)
    ========================================================================== */
 
@@ -574,6 +573,11 @@ function renderHeader() {
   const presetSelect = document.getElementById('preset-select');
   if (presetSelect) {
     presetSelect.value = currentPreset;
+  }
+
+  const headerSub = document.getElementById('header-role-subtitle');
+  if (headerSub && POSITIONS[currentRole]) {
+    headerSub.textContent = POSITIONS[currentRole].title[currentLang];
   }
 
   document.querySelectorAll('.tab-btn').forEach(btn => {
