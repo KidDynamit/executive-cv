@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>David Giguère | Modern Executive Sports Card CV</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Modern Executive Sports Card CV & Portfolio for David Giguère. Product Manager, Customer Success Lead & Solutions Architecture." />
+  <meta property="og:title" content="David Giguère — Executive Sports Card CV" />
+  <meta property="og:description" content="Explore skills, 0-100 player ratings, skill heatmap analytics, and career milestones across 27 countries." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js CDN for Skill Heatmap -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <!-- ==========================================================================
+       PASSWORD GATE OVERLAY (LIGHT & CLEAN)
+       ========================================================================== -->
+  <div id="password-gate" class="password-gate">
+    <div class="gate-card">
+      <div class="gate-icon">🔒</div>
+      <h2 class="gate-title">Protected Executive Profile</h2>
+      <p class="gate-subtitle">Enter your passcode to unlock David Giguère's sports card profile and executive career data.</p>
+
+      <form id="passcode-form" class="passcode-form">
+        <input 
+          type="password" 
+          id="passcode-input" 
+          class="passcode-input" 
+          placeholder="••••••••" 
+          autocomplete="off" 
+          required 
+          autofocus 
+        />
+        <button type="submit" class="passcode-submit">Unlock Profile ⚡</button>
+      </form>
+
+      <p class="gate-hint">Passcodes: DAVID2026 | GOOGLE2026 | AWS2026</p>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       APP HEADER
+       ========================================================================== -->
+  <header class="app-header">
+    <div class="header-container">
+      
+      <!-- Brand Logo -->
+      <div class="brand-logo">
+        <div class="logo-badge">DG</div>
+        <div class="logo-text">
+          <h1>DAVID GIGUÈRE</h1>
+          <p>Product Manager • 27 Countries</p>
+        </div>
+      </div>
+
+      <!-- Position Switcher Tabs -->
+      <nav class="position-tabs" aria-label="Target Role Selector">
+        <button class="tab-btn active" data-role="pm">
+          <span>🎯</span>
+          <span class="tab-label">Product Manager</span>
+        </button>
+        <button class="tab-btn" data-role="cs">
+          <span>🤝</span>
+          <span class="tab-label">Customer Success</span>
+        </button>
+        <button class="tab-btn" data-role="sa">
+          <span>🛠️</span>
+          <span class="tab-label">Solutions Architect</span>
+        </button>
+      </nav>
+
+      <!-- Header Controls -->
+      <div class="header-actions">
+        <!-- Target Company Preset Switcher -->
+        <select id="preset-select" class="preset-selector" title="Target Company Preset">
+          <option value="default">🌐 Preset: Default</option>
+          <option value="google">🔍 Preset: Google / Alphabet</option>
+          <option value="amazon">📦 Preset: Amazon / AWS</option>
+        </select>
+
+        <!-- Language Toggle -->
+        <button id="lang-toggle-btn" class="lang-btn" title="Toggle Language">
+          🇨🇦 EN | FR
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO CARD SECTION (FLAGSHIP FOCAL POINT)
+       ========================================================================== -->
+  <section class="hero-card-section">
+
+    <!-- Preset Banner -->
+    <div id="preset-banner" class="preset-banner-clean">
+      <!-- Injected via app.js -->
+    </div>
+
+    <!-- 3D FUT Sports Player Card Container -->
+    <div class="card-perspective-container">
+      <div id="fut-card" class="fut-card-light" title="Hover to view metric details • Click to view Career Evolution">
+        <!-- Injected via app.js -->
+      </div>
+      <!-- Hover Popover Injected via app.js -->
+    </div>
+
+    <!-- Expand Profile CTA -->
+    <button id="expand-profile-btn" class="expand-profile-btn">
+      <span>Explore Career Evolution & Key Milestones</span>
+      <span>👇</span>
+    </button>
+
+  </section>
+
+  <!-- ==========================================================================
+       EXPANDABLE DEEP DIVE SECTION
+       ========================================================================== -->
+  <section id="deep-dive-section" class="deep-dive-section">
+
+    <!-- Analytics & Skill Heatmap Grid -->
+    <div class="analytics-grid">
+      
+      <!-- Role Summary Box -->
+      <div class="clean-card">
+        <div id="role-summary-content">
+          <!-- Injected via app.js -->
+        </div>
+      </div>
+
+      <!-- Skill Heatmap Box -->
+      <div class="clean-card">
+        <div class="chart-box">
+          <div class="chart-title">
+            <span>📊 Skill Competency Heatmap (50–100 Scale)</span>
+            <span style="font-size: 11px; opacity: 0.7;">Grounded Radar Shape</span>
+          </div>
+          <div class="canvas-container">
+            <canvas id="skillRadarCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Career Timeline Section ("The Meat") -->
+    <section id="timeline-section" class="timeline-section">
+      <div class="section-title-box">
+        <h2>💼 Career Evolution & Key Milestones</h2>
+        <span style="font-size: 13px; color: var(--accent-color); font-weight: 700;">Hivestack (acquired by Perion) • Coveo • Hilti</span>
+      </div>
+
+      <!-- Timeline Container -->
+      <div id="timeline-container" class="timeline-list">
+        <!-- Injected via app.js -->
+      </div>
+
+      <!-- Education Subsection -->
+      <div style="margin-top: 40px;">
+        <h3 style="font-family: var(--font-heading); font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 16px;">
+          🎓 Education & Academic Background
+        </h3>
+        <div id="education-container" class="education-grid">
+          <!-- Injected via app.js -->
+        </div>
+      </div>
+
+    </section>
+
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="app-footer">
+    <div class="footer-actions">
+      <a href="mailto:davidgiguere21@gmail.com" class="action-btn">
+        ✉️ Contact David
+      </a>
+      <a href="https://linkedin.com/in/mrgiguere/" target="_blank" rel="noopener noreferrer" class="action-btn">
+        🔗 LinkedIn Profile
+      </a>
+      <button id="share-link-btn" class="action-btn" style="border-color: var(--accent-color);">
+        🔗 Copy Shareable Link for Recruiter
+      </button>
+    </div>
+    <p>© 2026 David Giguère. All rights reserved. Designed for Big Tech & High-Scale Applications.</p>
+  </footer>
+
+  <!-- Application Controller Script -->
+  <script src="./app.js"></script>
+</body>
+</html>
