@@ -1,7 +1,7 @@
 /* ==========================================================================
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV CONTROLLER
-   - Interactive company preset pills (Tech | Google | AWS)
-   - Animated score count-up
+   - Tap/Click Card to toggle between Front Player Card & Detailed Metric View
+   - Smooth 3D Flip & Clean Mobile Viewport Experience
    - Industry-accurate AdTech terminology (Publishers / Propriétaires Médias)
    ========================================================================== */
 
@@ -394,6 +394,7 @@ let currentLang = 'en';
 let currentRole = 'pm';
 let currentPreset = 'default';
 let isUnlocked = false;
+let isCardFlipped = false;
 let radarChartInstance = null;
 
 if (document.readyState === 'loading') {
@@ -508,6 +509,7 @@ function setupEventListeners() {
   const futCard = document.getElementById('fut-card');
   if (futCard) {
     futCard.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 900) return;
       const rect = futCard.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
@@ -520,10 +522,22 @@ function setupEventListeners() {
       futCard.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
     });
 
-    futCard.addEventListener('click', () => {
-      const timelineSection = document.getElementById('timeline-section');
-      if (timelineSection) {
-        timelineSection.scrollIntoView({ behavior: 'smooth' });
+    // Clicking Card toggles detailed view on mobile/tablet or scrolls to timeline
+    futCard.addEventListener('click', (e) => {
+      if (e.target.closest('.card-view-toggle')) {
+        e.stopPropagation();
+        isCardFlipped = !isCardFlipped;
+        renderPlayerCard();
+        return;
+      }
+      if (window.innerWidth <= 900) {
+        isCardFlipped = !isCardFlipped;
+        renderPlayerCard();
+      } else {
+        const timelineSection = document.getElementById('timeline-section');
+        if (timelineSection) {
+          timelineSection.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     });
   }
@@ -571,7 +585,6 @@ function renderHeader() {
     langBtn.textContent = currentLang === 'en' ? '🇨🇦 EN | FR' : '🇨🇦 FR | EN';
   }
 
-  // Update preset pills active state
   document.querySelectorAll('.preset-pill').forEach(pill => {
     if (pill.dataset.preset === currentPreset) {
       pill.classList.add('active');
@@ -599,59 +612,93 @@ function renderHeader() {
   });
 }
 
+/* Card Render with Front / Back Detailed View Switcher */
 function renderPlayerCard() {
   const pos = POSITIONS[currentRole];
   const futCard = document.getElementById('fut-card');
   if (!futCard) return;
 
-  const statsHtml = Object.keys(pos.stats).map(key => {
-    const stat = pos.stats[key];
-    const lbl = stat.label[currentLang];
-    const val = stat.value;
-    return `
-      <div class="attr-item" title="Click to view detail">
-        <span class="attr-val count-anim" data-target="${val}">${val}</span>
-        <span class="attr-lbl">${lbl}</span>
-        <div class="attr-bar-mini">
-          <div class="attr-bar-fill" style="width: ${val}%;"></div>
+  // Front View: Sports Ratings
+  if (!isCardFlipped) {
+    const statsHtml = Object.keys(pos.stats).map(key => {
+      const stat = pos.stats[key];
+      const lbl = stat.label[currentLang];
+      const val = stat.value;
+      return `
+        <div class="attr-item">
+          <span class="attr-val count-anim" data-target="${val}">${val}</span>
+          <span class="attr-lbl">${lbl}</span>
+          <div class="attr-bar-mini">
+            <div class="attr-bar-fill" style="width: ${val}%;"></div>
+          </div>
         </div>
+      `;
+    }).join('');
+
+    futCard.innerHTML = `
+      <div class="card-header-clean">
+        <div class="location-tag-clean">
+          <span>📍 ${CANDIDATE_INFO.location}</span>
+        </div>
+        <button class="card-view-toggle" title="Switch to Detailed View">
+          🔄 ${currentLang === 'en' ? 'Details' : 'Détails'}
+        </button>
+      </div>
+
+      <div class="candidate-avatar-frame">
+        <img src="${CANDIDATE_INFO.avatarUrl}" alt="${CANDIDATE_INFO.name}" onclick="promptGooglePhoto()" title="Click to change profile photo URL" />
+        <span class="avatar-update-btn" onclick="promptGooglePhoto()">📷 Change Photo</span>
+      </div>
+
+      <h2 class="player-name">${CANDIDATE_INFO.name}</h2>
+      <p class="player-subtitle">${pos.title[currentLang]}</p>
+
+      <div class="card-divider"></div>
+
+      <div class="attributes-grid">
+        ${statsHtml}
+      </div>
+
+      <div class="card-bottom-ovr-centered">
+        <span style="font-size: 14px; color: var(--accent-color);">★</span>
+        <span class="ovr-score-large count-anim" data-target="${pos.ovr}">${pos.ovr}</span>
+        <span class="ovr-label-text">OVERALL</span>
       </div>
     `;
-  }).join('');
+  } else {
+    // Back View: Detailed Breakdown
+    const detailsHtml = Object.keys(pos.stats).map(key => {
+      const stat = pos.stats[key];
+      return `
+        <div style="margin-bottom: 10px; text-align: left;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: var(--accent-color);">
+            <span>${stat.label[currentLang]}</span>
+            <span style="font-family: var(--font-jersey); font-size: 18px;">${stat.value}</span>
+          </div>
+          <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.3;">${stat.detail[currentLang]}</p>
+        </div>
+      `;
+    }).join('');
 
-  futCard.innerHTML = `
-    <div class="card-header-clean">
-      <div class="location-tag-clean">
-        <span>📍 ${CANDIDATE_INFO.location}</span>
+    futCard.innerHTML = `
+      <div class="card-header-clean">
+        <span style="font-size: 12px; font-weight: 800; color: var(--accent-color);">🔍 ${pos.title[currentLang]} Metrics</span>
+        <button class="card-view-toggle" title="Switch to Card View">
+          🔄 ${currentLang === 'en' ? 'Card' : 'Carte'}
+        </button>
       </div>
-      <div style="font-size: 10px; font-weight: 800; color: var(--accent-color); background: rgba(37, 99, 235, 0.08); padding: 4px 8px; border-radius: 6px;">
-        ${TARGET_PRESETS[currentPreset].name}
+
+      <div style="overflow-y: auto; padding-right: 4px; max-height: 440px; margin-top: 10px;">
+        ${detailsHtml}
       </div>
-    </div>
 
-    <div class="candidate-avatar-frame">
-      <img src="${CANDIDATE_INFO.avatarUrl}" alt="${CANDIDATE_INFO.name}" onclick="promptGooglePhoto()" title="Click to change profile photo URL" />
-      <span class="avatar-update-btn" onclick="promptGooglePhoto()">📷 Change Photo</span>
-    </div>
-
-    <h2 class="player-name">${CANDIDATE_INFO.name}</h2>
-    <p class="player-subtitle">${pos.title[currentLang]}</p>
-
-    <div class="card-divider"></div>
-
-    <div class="attributes-grid">
-      ${statsHtml}
-    </div>
-
-    <div class="card-bottom-ovr-centered">
-      <span style="font-size: 14px; color: var(--accent-color);">★</span>
-      <span class="ovr-score-large count-anim" data-target="${pos.ovr}">${pos.ovr}</span>
-      <span class="ovr-label-text">OVERALL</span>
-    </div>
-  `;
+      <div style="margin-top: auto; padding-top: 10px; text-align: center;">
+        <span style="font-size: 10px; color: var(--text-muted); font-weight: 700;">Tap anywhere to flip card back</span>
+      </div>
+    `;
+  }
 }
 
-/* Number Count-Up Micro Animation */
 function animateNumbers() {
   document.querySelectorAll('.count-anim').forEach(el => {
     const target = parseInt(el.dataset.target, 10);

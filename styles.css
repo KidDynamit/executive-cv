@@ -1,8 +1,8 @@
 /* ==========================================================================
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV DESIGN SYSTEM
    - Sleek metallic/glowing OVR Rating badge at bottom center
-   - Interactive Target Company Preset Pills
-   - Fully Mobile Responsive & Perfect Centering across all Viewports
+   - Card View Switcher (Front Player Card vs Back Detailed View)
+   - Fully Mobile Responsive & Clean Viewport Experience
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=Teko:wght@500;600;700&display=swap');
@@ -419,7 +419,25 @@ body {
   border-radius: 26px;
 }
 
-/* Card Hover Metric Details Popover */
+/* Card View Toggle Button */
+.card-view-toggle {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent-color);
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  padding: 4px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.card-view-toggle:hover {
+  background: var(--accent-color);
+  color: #ffffff;
+}
+
+/* Card Hover Metric Details Popover (Desktop Only) */
 .card-hover-popover {
   position: absolute;
   left: 105%;
@@ -1039,7 +1057,7 @@ body {
 }
 
 /* ==========================================================================
-   PERFECT RESPONSIVE & MOBILE CENTERING MEDIA QUERIES
+   MOBILE & TABLET VIEWPORT OPTIMIZATIONS
    ========================================================================== */
 
 @media (max-width: 900px) {
@@ -1068,21 +1086,9 @@ body {
     grid-template-columns: 1fr;
   }
 
+  /* Completely hide external hover popover on small screens so card is clean */
   .card-hover-popover {
-    position: relative;
-    left: auto;
-    top: auto;
-    transform: none !important;
-    width: 100%;
-    max-width: 350px;
-    margin: 16px auto 0;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .card-perspective-container:hover .card-hover-popover {
-    transform: none !important;
+    display: none !important;
   }
 }
 
