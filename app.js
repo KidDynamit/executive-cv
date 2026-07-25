@@ -1,7 +1,7 @@
 /* ==========================================================================
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV CONTROLLER
-   - Tap/Click Card to toggle between Front Player Card & Detailed Metric View
-   - Smooth 3D Flip & Clean Mobile Viewport Experience
+   - Desktop: Popover opens right next to card on hover
+   - Mobile / Small Viewport: Card internal content switches to Detailed Version ON HOVER
    - Industry-accurate AdTech terminology (Publishers / Propriétaires Médias)
    ========================================================================== */
 
@@ -488,7 +488,6 @@ function setupEventListeners() {
     });
   }
 
-  // Preset Pills Interactive Selection
   document.querySelectorAll('.preset-pill').forEach(pill => {
     pill.addEventListener('click', (e) => {
       currentPreset = e.currentTarget.dataset.preset;
@@ -508,6 +507,7 @@ function setupEventListeners() {
 
   const futCard = document.getElementById('fut-card');
   if (futCard) {
+    // 3D Parallax on Desktop
     futCard.addEventListener('mousemove', (e) => {
       if (window.innerWidth <= 900) return;
       const rect = futCard.getBoundingClientRect();
@@ -520,20 +520,31 @@ function setupEventListeners() {
 
     futCard.addEventListener('mouseleave', () => {
       futCard.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+      // Reset mobile hover flip on mouse leave
+      if (window.innerWidth <= 900) {
+        isCardFlipped = false;
+        renderPlayerCard();
+      }
     });
 
-    // Clicking Card toggles detailed view on mobile/tablet or scrolls to timeline
-    futCard.addEventListener('click', (e) => {
-      if (e.target.closest('.card-view-toggle')) {
-        e.stopPropagation();
-        isCardFlipped = !isCardFlipped;
+    // ON SMALL VIEWPORTS (<900px): Hover / Touch enters switches card to Detailed Version!
+    futCard.addEventListener('mouseenter', () => {
+      if (window.innerWidth <= 900) {
+        isCardFlipped = true;
         renderPlayerCard();
-        return;
       }
+    });
+
+    futCard.addEventListener('touchstart', () => {
       if (window.innerWidth <= 900) {
         isCardFlipped = !isCardFlipped;
         renderPlayerCard();
-      } else {
+      }
+    });
+
+    // Desktop Click -> Scroll to Timeline
+    futCard.addEventListener('click', () => {
+      if (window.innerWidth > 900) {
         const timelineSection = document.getElementById('timeline-section');
         if (timelineSection) {
           timelineSection.scrollIntoView({ behavior: 'smooth' });
@@ -612,13 +623,12 @@ function renderHeader() {
   });
 }
 
-/* Card Render with Front / Back Detailed View Switcher */
+/* Card Render with Front / Detailed View Switch */
 function renderPlayerCard() {
   const pos = POSITIONS[currentRole];
   const futCard = document.getElementById('fut-card');
   if (!futCard) return;
 
-  // Front View: Sports Ratings
   if (!isCardFlipped) {
     const statsHtml = Object.keys(pos.stats).map(key => {
       const stat = pos.stats[key];
@@ -640,9 +650,9 @@ function renderPlayerCard() {
         <div class="location-tag-clean">
           <span>📍 ${CANDIDATE_INFO.location}</span>
         </div>
-        <button class="card-view-toggle" title="Switch to Detailed View">
-          🔄 ${currentLang === 'en' ? 'Details' : 'Détails'}
-        </button>
+        <div style="font-size: 10px; font-weight: 800; color: var(--accent-color); background: rgba(37, 99, 235, 0.08); padding: 4px 8px; border-radius: 6px;">
+          ${TARGET_PRESETS[currentPreset].name}
+        </div>
       </div>
 
       <div class="candidate-avatar-frame">
@@ -666,7 +676,7 @@ function renderPlayerCard() {
       </div>
     `;
   } else {
-    // Back View: Detailed Breakdown
+    // Detailed View (Switched internal card view on small viewports hover)
     const detailsHtml = Object.keys(pos.stats).map(key => {
       const stat = pos.stats[key];
       return `
@@ -683,17 +693,11 @@ function renderPlayerCard() {
     futCard.innerHTML = `
       <div class="card-header-clean">
         <span style="font-size: 12px; font-weight: 800; color: var(--accent-color);">🔍 ${pos.title[currentLang]} Metrics</span>
-        <button class="card-view-toggle" title="Switch to Card View">
-          🔄 ${currentLang === 'en' ? 'Card' : 'Carte'}
-        </button>
+        <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">Detailed View</span>
       </div>
 
-      <div style="overflow-y: auto; padding-right: 4px; max-height: 440px; margin-top: 10px;">
+      <div style="overflow-y: auto; padding-right: 4px; max-height: 460px; margin-top: 10px;">
         ${detailsHtml}
-      </div>
-
-      <div style="margin-top: auto; padding-top: 10px; text-align: center;">
-        <span style="font-size: 10px; color: var(--text-muted); font-weight: 700;">Tap anywhere to flip card back</span>
       </div>
     `;
   }
@@ -717,6 +721,7 @@ function animateNumbers() {
   });
 }
 
+/* Render Desktop Hover Popover Right Next To Card */
 function renderHoverPopover() {
   const container = document.querySelector('.card-perspective-container');
   if (!container) return;

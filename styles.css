@@ -1,8 +1,7 @@
 /* ==========================================================================
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV DESIGN SYSTEM
-   - Sleek metallic/glowing OVR Rating badge at bottom center
-   - Card View Switcher (Front Player Card vs Back Detailed View)
-   - Fully Mobile Responsive & Clean Viewport Experience
+   - Desktop: Popover opens right next to card on hover
+   - Small Viewport: Card internal content switches to Detailed Version ON HOVER
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=Teko:wght@500;600;700&display=swap');
@@ -384,7 +383,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
 }
 
 .fut-card-light {
@@ -419,31 +417,13 @@ body {
   border-radius: 26px;
 }
 
-/* Card View Toggle Button */
-.card-view-toggle {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--accent-color);
-  background: rgba(37, 99, 235, 0.08);
-  border: 1px solid rgba(37, 99, 235, 0.2);
-  padding: 4px 10px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.card-view-toggle:hover {
-  background: var(--accent-color);
-  color: #ffffff;
-}
-
-/* Card Hover Metric Details Popover (Desktop Only) */
+/* Card Hover Metric Details Popover (Positioned Right Next to Card on Desktop) */
 .card-hover-popover {
   position: absolute;
-  left: 105%;
+  left: calc(100% + 14px);
   top: 50%;
   transform: translateY(-50%) translateX(10px);
-  width: 320px;
+  width: 310px;
   background: #ffffff;
   border: 1px solid #cbd5e1;
   box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.18), 0 0 25px var(--accent-glow);
@@ -1086,7 +1066,7 @@ body {
     grid-template-columns: 1fr;
   }
 
-  /* Completely hide external hover popover on small screens so card is clean */
+  /* Completely hide external hover popover on small screens */
   .card-hover-popover {
     display: none !important;
   }
