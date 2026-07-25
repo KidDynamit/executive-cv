@@ -1,6 +1,7 @@
 /* ==========================================================================
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV CONTROLLER
-   - Dynamic header subtitle without extra filler text
+   - Interactive company preset pills (Tech | Google | AWS)
+   - Animated score count-up
    - Industry-accurate AdTech terminology (Publishers / Propriétaires Médias)
    ========================================================================== */
 
@@ -486,13 +487,13 @@ function setupEventListeners() {
     });
   }
 
-  const presetSelect = document.getElementById('preset-select');
-  if (presetSelect) {
-    presetSelect.addEventListener('change', (e) => {
-      currentPreset = e.target.value;
+  // Preset Pills Interactive Selection
+  document.querySelectorAll('.preset-pill').forEach(pill => {
+    pill.addEventListener('click', (e) => {
+      currentPreset = e.currentTarget.dataset.preset;
       renderAll();
     });
-  }
+  });
 
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -548,13 +549,13 @@ function renderAll() {
 
   applyPresetTheme();
   renderHeader();
-  renderPresetBanner();
   renderPlayerCard();
   renderHoverPopover();
   renderRoleSummary();
   renderSkillRadar();
   renderTimeline();
   renderEducation();
+  animateNumbers();
 }
 
 function applyPresetTheme() {
@@ -570,10 +571,14 @@ function renderHeader() {
     langBtn.textContent = currentLang === 'en' ? '🇨🇦 EN | FR' : '🇨🇦 FR | EN';
   }
 
-  const presetSelect = document.getElementById('preset-select');
-  if (presetSelect) {
-    presetSelect.value = currentPreset;
-  }
+  // Update preset pills active state
+  document.querySelectorAll('.preset-pill').forEach(pill => {
+    if (pill.dataset.preset === currentPreset) {
+      pill.classList.add('active');
+    } else {
+      pill.classList.remove('active');
+    }
+  });
 
   const headerSub = document.getElementById('header-role-subtitle');
   if (headerSub && POSITIONS[currentRole]) {
@@ -594,24 +599,6 @@ function renderHeader() {
   });
 }
 
-function renderPresetBanner() {
-  const banner = document.getElementById('preset-banner');
-  if (!banner) return;
-
-  const preset = TARGET_PRESETS[currentPreset] || TARGET_PRESETS.default;
-  const companyName = preset.name;
-  const tagline = preset.tagline[currentLang];
-  const pillars = preset.pillars[currentLang];
-
-  banner.innerHTML = `
-    <h3>⚡ ${preset.badge}: ${companyName}</h3>
-    <p>• ${tagline}</p>
-    <div style="display: flex; gap: 6px; margin-left: 10px;">
-      ${pillars.map(p => `<span class="pillar-tag" style="background: #f1f5f9; color: var(--accent-color); font-size: 11px; padding: 2px 10px; border-radius: 12px; font-weight: 700;">${p}</span>`).join('')}
-    </div>
-  `;
-}
-
 function renderPlayerCard() {
   const pos = POSITIONS[currentRole];
   const futCard = document.getElementById('fut-card');
@@ -622,8 +609,8 @@ function renderPlayerCard() {
     const lbl = stat.label[currentLang];
     const val = stat.value;
     return `
-      <div class="attr-item">
-        <span class="attr-val">${val}</span>
+      <div class="attr-item" title="Click to view detail">
+        <span class="attr-val count-anim" data-target="${val}">${val}</span>
         <span class="attr-lbl">${lbl}</span>
         <div class="attr-bar-mini">
           <div class="attr-bar-fill" style="width: ${val}%;"></div>
@@ -658,10 +645,29 @@ function renderPlayerCard() {
 
     <div class="card-bottom-ovr-centered">
       <span style="font-size: 14px; color: var(--accent-color);">★</span>
-      <span class="ovr-score-large">${pos.ovr}</span>
+      <span class="ovr-score-large count-anim" data-target="${pos.ovr}">${pos.ovr}</span>
       <span class="ovr-label-text">OVERALL</span>
     </div>
   `;
+}
+
+/* Number Count-Up Micro Animation */
+function animateNumbers() {
+  document.querySelectorAll('.count-anim').forEach(el => {
+    const target = parseInt(el.dataset.target, 10);
+    if (isNaN(target)) return;
+    let current = Math.max(0, target - 20);
+    const step = () => {
+      current += 1;
+      el.textContent = current;
+      if (current < target) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target;
+      }
+    };
+    requestAnimationFrame(step);
+  });
 }
 
 function renderHoverPopover() {

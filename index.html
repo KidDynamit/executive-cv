@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>David Giguère | Modern Executive Sports Card CV</title>
+  <title>David Giguère | Executive Sports Card Profile</title>
   
   <!-- SEO & Social Meta -->
-  <meta name="description" content="Modern Executive Sports Card CV & Portfolio for David Giguère. Product Manager, Customer Success Lead & Solutions Architecture." />
-  <meta property="og:title" content="David Giguère — Executive Sports Card CV" />
-  <meta property="og:description" content="Explore skills, 0-100 player ratings, skill heatmap analytics, and career milestones." />
+  <meta name="description" content="Interactive Executive Profile for David Giguère. Product Manager, Customer Success Lead & Solutions Architecture." />
+  <meta property="og:title" content="David Giguère — Executive Sports Card Profile" />
+  <meta property="og:description" content="Explore skills, 0-100 ratings, skill heatmap analytics, and career milestones." />
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
     <div class="gate-card">
       <div class="gate-icon">🔒</div>
       <h2 class="gate-title">Protected Executive Profile</h2>
-      <p class="gate-subtitle">Enter your passcode to unlock David Giguère's sports card profile and executive career data.</p>
+      <p class="gate-subtitle">Enter your passcode to unlock David Giguère's profile and executive career data.</p>
 
       <form id="passcode-form" class="passcode-form">
         <input 
@@ -50,7 +50,7 @@
   </div>
 
   <!-- ==========================================================================
-       APP HEADER
+       APP HEADER WITH INTERACTIVE MODE SWITCHER
        ========================================================================== -->
   <header class="app-header">
     <div class="header-container">
@@ -80,14 +80,13 @@
         </button>
       </nav>
 
-      <!-- Header Controls -->
+      <!-- Interactive Preset Selector Pills -->
       <div class="header-actions">
-        <!-- Target Company Preset Switcher -->
-        <select id="preset-select" class="preset-selector" title="Target Company Preset">
-          <option value="default">🌐 Preset: Default</option>
-          <option value="google">🔍 Preset: Google / Alphabet</option>
-          <option value="amazon">📦 Preset: Amazon / AWS</option>
-        </select>
+        <div class="preset-pill-group" aria-label="Company Preset Selector">
+          <button class="preset-pill active" data-preset="default">🌐 Tech</button>
+          <button class="preset-pill" data-preset="google">🔍 Google</button>
+          <button class="preset-pill" data-preset="amazon">📦 AWS</button>
+        </div>
 
         <!-- Language Toggle -->
         <button id="lang-toggle-btn" class="lang-btn" title="Toggle Language">
@@ -102,11 +101,6 @@
        HERO CARD SECTION (FLAGSHIP FOCAL POINT)
        ========================================================================== -->
   <section class="hero-card-section">
-
-    <!-- Preset Banner -->
-    <div id="preset-banner" class="preset-banner-clean">
-      <!-- Injected via app.js -->
-    </div>
 
     <!-- 3D FUT Sports Player Card Container -->
     <div class="card-perspective-container">
