@@ -2,7 +2,7 @@
    DAVID GIGUÈRE — EXECUTIVE SPORTS CARD CV CONTROLLER
    - Premium Pill Overall Rating badge at bottom center
    - Location (Canada • Montréal) at top
-   - Realistic stat ratings & Google HR standard
+   - Industry-accurate AdTech terminology (Publishers / Propriétaires Médias)
    ========================================================================== */
 
 const PASSCODES = {
@@ -26,7 +26,7 @@ const TARGET_PRESETS = {
     },
     pillars: {
       en: ["27-Country Operations", "$20M+ DSP Revenue", "15x Publisher Expansion"],
-      fr: ["Opérations dans 27 Pays", "Revenu DSP > 20M$", "Expansion Éditeurs x15"]
+      fr: ["Opérations dans 27 Pays", "Revenu DSP > 20M$", "Expansion Publishers x15"]
     }
   },
   google: {
@@ -117,16 +117,16 @@ const POSITIONS = {
     },
     topTraits: {
       en: ["$20M+ DSP Platform Owner", ">30% YoY Revenue Growth", "15x Publisher Ad Server Expansion", "Cross-Functional Team Mgmt"],
-      fr: ["Responsable Platforme DSP >20M$", "Croissance >30%/an", "Expansion Ad Server x15 (3M$+)", "Gestion d'Équipes Multidisciplinaires"]
+      fr: ["Responsable Plateforme DSP >20M$", "Croissance >30%/an", "Expansion Ad Server Publishers x15 (3M$+)", "Gestion d'Équipes Multidisciplinaires"]
     },
     summary: {
       en: "Product Manager managing Hivestack's #1 revenue driver: the Demand-Side Platform (DSP) generating $20M+/year with >30% YoY growth. Scaled publisher ad server net revenue from $200K to $3M+ (15x growth) across 20+ enterprise media partners.",
-      fr: "Product Manager responsable du moteur financier principal : la plateforme DSP (>20M$/an avec >30% de croissance). Expansion de l'Ad Server éditeur de 200k$ à plus de 3M$ net sur 20+ grands médias."
+      fr: "Product Manager responsable du moteur financier principal : la plateforme DSP (>20M$/an avec >30% de croissance). Expansion de l'Ad Server Publisher (Médias) de 200k$ à plus de 3M$ net sur 20+ grands partenaires médias."
     },
     keyMetrics: [
       { label: { en: "Core DSP Revenue", fr: "Revenu Moteur DSP" }, value: "$20M+ / Year" },
       { label: { en: "Annual Growth Rate", fr: "Taux de Croissance YoY" }, value: "> 30% YoY" },
-      { label: { en: "Publisher Rev Expansion", fr: "Expansion Revenu Éditeurs" }, value: "15x ($200K ➔ $3M+)" }
+      { label: { en: "Publisher Rev Expansion", fr: "Expansion Revenu Publishers" }, value: "15x ($200K ➔ $3M+)" }
     ]
   },
   cs: {
@@ -146,7 +146,7 @@ const POSITIONS = {
       ACC: { 
         label: { en: "Key Account Mgmt", fr: "Gestion Grands Comptes" }, 
         value: 93,
-        detail: { en: "Managed supply accounts generating $10M+ gross annual revenue.", fr: "Gestion des comptes éditeurs clés générant plus de 10M$ brut." }
+        detail: { en: "Managed supply accounts generating $10M+ gross annual revenue.", fr: "Gestion des comptes Publishers clés générant plus de 10M$ brut." }
       },
       ESC: { 
         label: { en: "SLA & Escalation Mgmt", fr: "Gestion SLAs & Escalades" }, 
@@ -175,11 +175,11 @@ const POSITIONS = {
     },
     summary: {
       en: "Led technical account management worldwide operating across 27 countries. Managed all publisher supply accounts generating $10M+ gross annual revenue while building regional TAM teams across Americas, EMEA, and APAC.",
-      fr: "Direction des opérations TAM dans 27 pays. Gestion des comptes éditeurs générant plus de 10M$ brut et encadrement des équipes TAM régionales (Amériques, EMEA, APAC)."
+      fr: "Direction des opérations TAM dans 27 pays. Gestion des comptes Publishers (Propriétaires Médias) générant plus de 10M$ brut et encadrement des équipes TAM régionales (Amériques, EMEA, APAC)."
     },
     keyMetrics: [
       { label: { en: "Global Operations", fr: "Opérations Mondiales" }, value: "27 Countries" },
-      { label: { en: "Publisher Account Portfolio", fr: "Portefeuille Comptes Éditeurs" }, value: "$10M+ Gross Rev" },
+      { label: { en: "Publisher Account Portfolio", fr: "Portefeuille Comptes Publishers" }, value: "$10M+ Gross Rev" },
       { label: { en: "Agency HoldCo Workflows", fr: "Flux Agences HoldCos" }, value: "WPP, Dentsu, Talon" }
     ]
   },
@@ -200,7 +200,7 @@ const POSITIONS = {
       DES: { 
         label: { en: "Enterprise Ad Server Design", fr: "Design Ad Server Entreprise" }, 
         value: 91,
-        detail: { en: "Scaled publisher net revenue by 15x across 20+ enterprise partners.", fr: "Expansion des revenus éditeurs x15 sur 20+ médias d'envergure." }
+        detail: { en: "Scaled publisher net revenue by 15x across 20+ enterprise partners.", fr: "Expansion des revenus Publishers x15 sur 20+ médias d'envergure." }
       },
       SYS: { 
         label: { en: "System Architecture", fr: "Architecture Système" }, 
@@ -215,7 +215,7 @@ const POSITIONS = {
       CLD: { 
         label: { en: "Cloud Platform Solutions", fr: "Solutions Cloud" }, 
         value: 84,
-        detail: { en: "Integrated top global media owners (Astral, OUTFRONT, Scentre Group).", fr: "Intégration des plus grands médias (Astral, OUTFRONT, Scentre)." }
+        detail: { en: "Integrated top global media owners (Astral, OUTFRONT, Scentre Group).", fr: "Intégration des plus grands Publishers & Médias (Astral, OUTFRONT, Scentre)." }
       },
       COD: { 
         label: { en: "Scripting & Technical Specs", fr: "Spécifications & Scripting" }, 
@@ -232,7 +232,7 @@ const POSITIONS = {
       fr: "Parcours en architecture technique spécialisé dans les plateformes AdTech programmatiques haute échelle, l'intégration d'enchérisseurs DSP et les Ad Servers d'entreprise."
     },
     keyMetrics: [
-      { label: { en: "Publisher Rev Growth", fr: "Croissance Revenu Éditeur" }, value: "15x ($200K ➔ $3M+)" },
+      { label: { en: "Publisher Rev Growth", fr: "Croissance Revenu Publishers" }, value: "15x ($200K ➔ $3M+)" },
       { label: { en: "Enterprise Media Partners", fr: "Médias Majeurs Intégrés" }, value: "20+ Global Clients" },
       { label: { en: "Global Footprint", fr: "Marchés Mondiaux" }, value: "27 Countries" }
     ]
@@ -252,7 +252,7 @@ const CAREER_HISTORY = [
     highlight: true,
     description: {
       en: "Product Manager owning the company's primary revenue engine (DSP) generating $20M+/year with >30% YoY growth, while leading publisher ad server expansion across 20+ global enterprise clients.",
-      fr: "Product Manager responsable du moteur de revenu principal (DSP > 20M$/an, croissance >30%/an) et de l'expansion de l'Ad Server chez plus de 20 grands éditeurs mondiaux."
+      fr: "Product Manager responsable du moteur de revenu principal (DSP > 20M$/an, croissance >30%/an) et de l'expansion de l'Ad Server auprès de plus de 20 grands Publishers & Médias mondiaux."
     },
     achievements: {
       en: [
@@ -263,7 +263,7 @@ const CAREER_HISTORY = [
       ],
       fr: [
         "**Moteur de Revenu DSP (> 20M$ / an)** : Direction de la stratégie produit du moteur financier principal, maintenant une **croissance > 30% par an**.",
-        "**Expansion d'Ad Server Éditeur** : Croissance du portefeuille éditeurs de 3-4 à **plus de 20 clients d'envergure**, faisant passer les revenus nets de **200k$ à plus de 3M$** (multiplié par 15). Intégration des plus grands éditeurs mondiaux (**Astral**, **OUTFRONT Media**, **Scentre Group**).",
+        "**Expansion d'Ad Server Publisher** : Croissance du portefeuille Publishers (Propriétaires Médias) de 3-4 à **plus de 20 clients d'envergure**, faisant passer les revenus nets de **200k$ à plus de 3M$** (multiplié par 15). Intégration des plus grands Publishers mondiaux (**Astral**, **OUTFRONT Media**, **Scentre Group**).",
         "**Livraison de Fonctionnalités AdTech** : Définition des spécifications d'un enchérisseur propriétaire (Bidder), déclencheurs DCO, algorithmes de pacing et intégrations RTB.",
         "**Leadership d'Équipes Multidisciplinaires** : Encadrement d'équipes d'ingénierie agiles sur des projets stratégiques majeurs, traduisant les besoins d'affaires en spécifications techniques nettes."
       ]
@@ -282,7 +282,7 @@ const CAREER_HISTORY = [
     highlight: true,
     description: {
       en: "Promoted to lead all publisher technical account management worldwide. Managed key publisher supply accounts generating $10M+ in annual gross revenue across 27 countries.",
-      fr: "Promu pour diriger l'ensemble de la gestion de comptes techniques éditeurs à l'échelle mondiale. Gestion des comptes clés générant plus de 10M$ de revenu brut annuel dans 27 pays."
+      fr: "Promu pour diriger l'ensemble de la gestion de comptes techniques Publishers (Supply) à l'échelle mondiale. Gestion des comptes clés générant plus de 10M$ de revenu brut annuel dans 27 pays."
     },
     achievements: {
       en: [
@@ -293,7 +293,7 @@ const CAREER_HISTORY = [
       ],
       fr: [
         "**Opérations Mondiales (27 Pays)** : Direction des équipes TAM régionales dans les **Amériques, EMEA et APAC** (2 TAMs par région).",
-        "**Portefeuille Éditeurs Majeur (> 10M$ brut)** : Gestion des partenaires stratégiques garantissant la conformité SLA et une intégration rapide.",
+        "**Portefeuille Publishers Majeur (> 10M$ brut)** : Gestion des partenaires stratégiques (Supply) garantissant la conformité SLA et une intégration rapide.",
         "**Écosystème Agences HoldCos** : Support technique des flux connectés aux plus grandes agences mondiales (**WPP, Dentsu, Talon**).",
         "**Standardisation & Documentation** : Rédaction de la documentation d'intégration API, onboarding et dépannage."
       ]
@@ -608,7 +608,6 @@ function renderPresetBanner() {
   `;
 }
 
-/* Metallic Pill Bottom Overall Badge */
 function renderPlayerCard() {
   const pos = POSITIONS[currentRole];
   const futCard = document.getElementById('fut-card');
